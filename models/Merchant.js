@@ -38,14 +38,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER
         }
     });
-
-    Merchant.associate = function(models) {
-        // Associating Merchant with Merchant_Reviews
-        // When an Merchant is deleted, also delete any associated Reviews
-        // Merchant.hasMany(models.Merchant_Review);
-        // Merchant.hasMany(models.Merchant_Ad);
-        // Merchant.hasMany(models.Grower_Review)
-    };
     return Merchant;
 };
   

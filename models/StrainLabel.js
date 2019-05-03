@@ -1,25 +1,27 @@
 module.exports = function(sequelize, DataTypes) {
-  const MerchantReview = sequelize.define("Merchant_Review", {
+  const StrainLabel = sequelize.define("Strain_Label", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
-    },
-    custy_id: {
+    }, 
+    strain_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'Strains',
+        key: 'id'
+      }
     },
-    merchant_id: {
+    label_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    merchant_review: {
-      type: DataTypes.TEXT
-    },
-    merchant_rating: {
-      type: DataTypes.INTEGER
+      references: {
+        model: 'Labels',
+        key: 'id'
+      }
     }
   });
-  return MerchantReview;
+  return StrainLabel;
 };

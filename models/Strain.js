@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Strain = sequelize.define("Strain", {
+  const Strain = sequelize.define("Strain", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -7,10 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     strain_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    strain_labels: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -47,6 +43,15 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     }
   });
+  Strain.associate = models => {
+    // models.(table_name)
+    Strain.belongsToMany(models.Label, {
+      through: "StrainLabel",
+      foreignKey: "strain_id"
+    });
+    Strain.hasMany(models.Wishlisted_Strain);
+    // Strain.belongsTo(models.User);
+  }
   return Strain;
 };
 

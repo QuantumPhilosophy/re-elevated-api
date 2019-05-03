@@ -1,26 +1,19 @@
 module.exports = function(sequelize, DataTypes) {
-  const GrowerReview = sequelize.define("Grower_Review", {
+  const GrowerMenu = sequelize.define("Grower_Menu", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     }, 
-    merchant_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     grower_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
-    grower_review: {
+    strain_menu_items: {
       type: DataTypes.TEXT,
-    },
-    grower_rating: {
-      type: DataTypes.INTEGER,
+      allowNull:false
     }
   });
-  return GrowerReview;
+  return GrowerMenu;
 };
- 

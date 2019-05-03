@@ -17,14 +17,14 @@ module.exports = function(sequelize, DataTypes) {
     grower_password: {
       type: DataTypes.STRING,
     },
-    grower_verification: {
+    grower_verification_img: {
       type: DataTypes.BOOLEAN,
       allowNull: false
     },
     grower_img: {
       type: DataTypes.TEXT,
     },
-    grower_avg_user_rating: {
+    grower_avg_custy_rating: {
       type: DataTypes.INTEGER,
     },
     grower_avg_merchant_rating: {

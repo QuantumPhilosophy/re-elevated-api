@@ -1,7 +1,14 @@
 'use strict'
+const db = require("../models");
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
-    res.json('Root Route is working')
-  })
+    db.User.findAll({
+      include: [
+        {model: db.Wishlisted_Strain},
+      ]
+    }).then(results => {
+      res.json(results);
+    })
+  });
 }
