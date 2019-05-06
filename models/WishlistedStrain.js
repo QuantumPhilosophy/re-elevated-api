@@ -8,8 +8,8 @@ module.exports = function(sequelize, DataTypes) {
     }, 
   });
   WishlistedStrain.associate = models => {
-    // WishlistedStrain.belongsTo(models.Label);
-    
+    WishlistedStrain.belongsTo(models.User);
+    WishlistedStrain.belongsTo(models.Strain);
   }
   return WishlistedStrain;
 };

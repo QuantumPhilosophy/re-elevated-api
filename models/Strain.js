@@ -49,8 +49,9 @@ module.exports = function(sequelize, DataTypes) {
       through: "StrainLabel",
       foreignKey: "strain_id"
     });
-    Strain.hasMany(models.Wishlisted_Strain);
-    // Strain.belongsTo(models.User);
+    Strain.hasMany(models.Wishlisted_Strain, {foreignKey: "strain_id"});
+    Strain.hasMany(models.Tried_Strain, {foreignKey: "strain_id"});
+    Strain.hasMany(models.Strain_Review, {foreignKey: "strain_id"});
   }
   return Strain;
 };

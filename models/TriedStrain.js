@@ -33,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
   });
   TriedStrain.associate = models => {
     TriedStrain.belongsTo(models.User);
+    TriedStrain.belongsTo(models.Strain);
   }
   return TriedStrain;
 };

@@ -13,5 +13,8 @@ module.exports = function(sequelize, DataTypes) {
     type: DataTypes.TEXT,
     }
   });
+  MerchantAd.associate = models => {
+    MerchantAd.belongsTo(models.Merchant);
+  }
   return MerchantAd;
 };

@@ -31,5 +31,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
     }
   });
+  Grower.associate = models => {
+    Grower.hasMany(models.Grower_Review);
+    Grower.hasOne(models.Grower_Menu);
+  }
   return Grower;
 };

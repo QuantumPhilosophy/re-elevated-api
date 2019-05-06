@@ -25,6 +25,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
     }
   });
+  GrowerReview.associate = models => {
+    GrowerReview.belongsTo(models.Merchant);
+    GrowerReview.belongsTo(models.Grower);
+  }
   return GrowerReview;
 };
  

@@ -6,22 +6,22 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     }, 
-    strain_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Strains',
-        key: 'id'
-      }
-    },
-    label_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Labels',
-        key: 'id'
-      }
-    }
+    // strain_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: 'Strains',
+    //     key: 'id'
+    //   }
+    // },
+    // label_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: 'Labels',
+    //     key: 'id'
+    //   }
+    // }
   });
   return StrainLabel;
 };

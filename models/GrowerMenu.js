@@ -15,5 +15,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull:false
     }
   });
+  GrowerMenu.associate = models => {
+    GrowerMenu.belongsTo(models.Grower);
+  }
   return GrowerMenu;
 };

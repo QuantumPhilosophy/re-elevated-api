@@ -45,6 +45,7 @@ module.exports = function(sequelize, DataTypes) {
     });
     StrainReview.associate = models => {
       StrainReview.belongsTo(models.User);
+      StrainReview.belongsTo(models.Strain);
     }
     return StrainReview;
   };

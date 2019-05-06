@@ -38,6 +38,10 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.INTEGER
         }
     });
+    Merchant.associate = models => {
+        Merchant.hasMany(models.Merchant_Review);
+        Merchant.hasMany(models.Merchant_Ad);
+    }
     return Merchant;
 };
   

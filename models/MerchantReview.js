@@ -29,5 +29,9 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER
     }
   });
+  MerchantReview.associate = models => {
+    MerchantReview.belongsTo(models.User);
+    MerchantReview.belongsTo(models.Merchant);
+  }
   return MerchantReview;
 };
