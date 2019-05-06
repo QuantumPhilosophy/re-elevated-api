@@ -128,17 +128,26 @@ module.exports = function (app) {
   });
 
   // Update already existing merchant review
-  app.put('/merchantreviews/:merchId', function (req, res) {
-    db.Merchant_Review.update({
-      where: {
-        id: req.params.merchId,
-      }
-
+  app.put('/merchantreviews/:merchantId', function (req, res) {
+    db.Merchant_Review.update(
+      {},
+      { where: { id: req.params.merchantId } }
+    ).then(results => {
+      res.json(results);
     })
   });
 
   // Remove a written merchant review 
-  app.delete('');
+  app.delete('/merchantreviews/remove/:merchantId', function (req, res) {
+    db.Merchant_Review.destroy({
+      where: {
+        id: req.params.merchantId,
+      }
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
 
   // All of Label's/Strain's Use Cases
   // ================================
@@ -148,7 +157,15 @@ module.exports = function (app) {
       res.json(results);
     })
   });
+
   // Adding new strains to the database (post)
+  app.post('/strains', function (req, res) {
+    db.Strain.create({
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
 
   // All of Merchants's Use Cases
   // ================================
