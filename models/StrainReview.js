@@ -46,8 +46,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
     StrainReview.associate = models => {
-    //   StrainReview.belongsTo(models.User);
-    //   StrainReview.belongsTo(models.Strain);
+      StrainReview.belongsTo(models.User, {foreignKey: 'user_id'});
+      StrainReview.belongsTo(models.Strain, {foreignKey: 'strain_id'});
     }
     return StrainReview;
   };

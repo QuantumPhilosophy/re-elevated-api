@@ -34,8 +34,8 @@ module.exports = function(sequelize, DataTypes) {
     // }
   });
   TriedStrain.associate = models => {
-    // TriedStrain.belongsTo(models.User);
-    // TriedStrain.belongsTo(models.Strain);
+    TriedStrain.belongsTo(models.User, {foreignKey: 'user_id'});
+    TriedStrain.belongsTo(models.Strain, {foreignKey: 'strain_id'});
   }
   return TriedStrain;
 };

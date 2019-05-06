@@ -23,7 +23,7 @@ module.exports = function (app) {
     })
   })
 
-  
+
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.findAll({
@@ -174,7 +174,15 @@ module.exports = function (app) {
   // Adding new strains to the database (post)
   app.post('/strains', function (req, res) {
     db.Strain.create({
-
+      strain_name: req.body.strainName,
+      strain_race: req.body.strainRace,
+      strain_flavor: req.body.strainFlavor,
+      strain_positive: req.body.strainPositive,
+      strain_negative: req.body.strainNegative,
+      strain_medical: req.body.strainMedical,
+      strain_descr: req.body.strainDescr,
+      strain_img: req.body.strainImg,
+      strain_avg_rating: req.body.strainAvgRating
     }).then(results => {
       res.json(results);
     })

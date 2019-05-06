@@ -11,8 +11,8 @@ module.exports = function(sequelize, DataTypes) {
   });
 
   WishlistedStrain.associate = models => {
-    // WishlistedStrain.belongsTo(models.User);
-    // WishlistedStrain.belongsTo(models.Strain);
+    WishlistedStrain.belongsTo(models.User, {foreignKey: 'user_id'});
+    WishlistedStrain.belongsTo(models.Strain, {foreignKey: 'strain_id'});
   };
 
   return WishlistedStrain;
