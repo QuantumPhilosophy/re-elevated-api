@@ -16,10 +16,8 @@ module.exports = function (app) {
   // Add new item to wishlist (post)
   app.post('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      }
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -46,10 +44,8 @@ module.exports = function (app) {
   // Add new item to tried list (post)
   app.post('/tried/:userId', function (req, res) {
     db.Tried_Strain.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      },
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -76,10 +72,8 @@ module.exports = function (app) {
   // Add new review to a strain (post)
   app.post('/strainreviews/:userId', function (req, res) {
     db.Strain_Review.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      },
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -88,6 +82,8 @@ module.exports = function (app) {
   // Update already existing reviews
   app.put('/strainreviews/:reviewId', function (req, res) {
     db.Strain_Review.update({
+
+    }, {
       where: { id: req.params.reviewId }
     }).then(results => {
       res.json(results);
@@ -115,12 +111,10 @@ module.exports = function (app) {
   // Add new review to a merchant (post)
   app.post('/merchantreviews/:userId', function (req, res) {
     db.Merchant_Review.create({
-      where: { 
-        user_id: req.params.userId,
-        merchant_id: req.body.merchantId,
-        merchant_review: req.body.merchantReview,
-        merchant_rating: req.body.merchantRating
-      }
+      user_id: req.params.userId,
+      merchant_id: req.body.merchantId,
+      merchant_review: req.body.merchantReview,
+      merchant_rating: req.body.merchantRating
     }).then(results => {
       res.json(results);
     })
