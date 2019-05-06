@@ -96,10 +96,10 @@ module.exports = function (app) {
   });
 
   // Update already existing reviews
-  app.put();
+  app.put('');
 
   // Remove a review written
-  app.delete();
+  app.delete('');
 
   // Get all merchant reviews written by the logged in user
   app.get('/:id/merchantreviews', function (req, res) {
@@ -112,9 +112,15 @@ module.exports = function (app) {
       res.json(results);
     })
   });
+
   // Add new review to an item (post)
+  app.post('');
+
   // Update already existing reviews
+  app.put('');
+
   // Remove a review written
+  app.delete('');
 
   // All of Label's/Strain's Use Cases
   // ================================
@@ -148,7 +154,9 @@ module.exports = function (app) {
   });
 
   // Merchants adding ads (post)
+  app.post('');
   // Merchant adding growers review (post)
+  app.post('');
 
   // All of Growers's Use Cases
   // ================================
