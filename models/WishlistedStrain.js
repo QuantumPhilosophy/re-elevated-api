@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const WishlistedStrain = sequelize.define("Wishlisted_Strain", {
     id: {
@@ -13,3 +15,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return WishlistedStrain;
 };
+
+

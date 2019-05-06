@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const TriedStrain = sequelize.define("Tried_Strain", {
     id: {
@@ -37,3 +39,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return TriedStrain;
 };
+
+

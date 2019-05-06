@@ -6,55 +6,49 @@ module.exports = function (app) {
   // All of User's Use Cases
   // ==============================
   // Get all wishlisted items of the logged in user
-  app.get('/:id/wishlisted', function (req, res) {
-    db.User.findAll({
-      where: { id: req.params.id },
-      include: [
-        { model: db.Wishlisted_Strain },
-      ]
+  app.get('/wishlisted/:userId', function (req, res) {
+    db.Wishlisted_Strain.findAll({
+      where: { user_id: req.params.userId }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Add new item to wishlist (post)
-  app.post('/:id/wishlisted', function (req, res) {
+  app.post('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.create({
       where: { 
-        user_id: req.params.id,
+        user_id: req.params.userId,
         strain_id: req.body.strainId
-      },
+      }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Remove item from wishlist
-  app.delete('/:wishid', function (req, res) {
+  app.delete('/wishlisted/:wishId', function (req, res) {
     db.Wishlisted_Strain.destroy({
-      where: { id: req.params.wishid }
+      where: { id: req.params.wishId }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Get all tried items of the logged in user
-  app.get('/:id/tried', function (req, res) {
-    db.User.findAll({
-      where: { id: req.params.id },
-      include: [
-        { model: db.Tried_Strain },
-      ]
+  app.get('/tried/:userId', function (req, res) {
+    db.Tried_Strain.findAll({
+      where: { user_id: req.params.userId }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Add new item to tried list (post)
-  app.post('/:id/tried', function (req, res) {
+  app.post('/tried/:userId', function (req, res) {
     db.Tried_Strain.create({
       where: { 
-        user_id: req.params.id,
+        user_id: req.params.userId,
         strain_id: req.body.strainId
       },
     }).then(results => {
@@ -63,31 +57,28 @@ module.exports = function (app) {
   });
   
   // Remove item from tried list
-  app.delete('/:triedid', function (req, res) {
+  app.delete('/tried/:triedId', function (req, res) {
     db.Tried_Strain.destroy({
-      where: { id: req.params.triedid }
+      where: { id: req.params.triedId }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Get all strain reviews written by the logged in user
-  app.get('/:id/strainreviews', function (req, res) {
+  app.get('/strainreviews/:userId', function (req, res) {
     db.Strain_Review.findAll({
-      where: { user_id: req.params.id },
-      include: [
-        { model: db.User },
-      ]
+      where: { user_id: req.params.userId }
     }).then(results => {
       res.json(results);
     })
   });
 
-  // Add new review to an item (post)
-  app.post('/:id/strainreviews', function (req, res) {
+  // Add new review to a strain (post)
+  app.post('/strainreviews/:userId', function (req, res) {
     db.Strain_Review.create({
       where: { 
-        user_id: req.params.id,
+        user_id: req.params.userId,
         strain_id: req.body.strainId
       },
     }).then(results => {
@@ -96,30 +87,57 @@ module.exports = function (app) {
   });
 
   // Update already existing reviews
-  app.put('');
-
-  // Remove a review written
-  app.delete('');
-
-  // Get all merchant reviews written by the logged in user
-  app.get('/:id/merchantreviews', function (req, res) {
-    db.User.findAll({
-      where: { id: req.params.id },
-      include: [
-        { model: db.Merchant_Review },
-      ]
+  app.put('/strainreviews/:reviewId', function (req, res) {
+    db.Strain_Review.update({
+      where: { id: req.params.reviewId }
     }).then(results => {
       res.json(results);
     })
   });
 
-  // Add new review to an item (post)
-  app.post('');
-
-  // Update already existing reviews
-  app.put('');
-
   // Remove a review written
+  app.delete('/strainreviews/remove/:reviewId', function (req, res) {
+    db.Strain_Review.destroy({
+      where: { id: req.params.reviewId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all merchant reviews written by the logged in user
+  app.get('/merchantreviews/:userId', function (req, res) {
+    db.Merchant_Review.findAll({
+      where: { user_id: req.params.userId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Add new review to a merchant (post)
+  app.post('/merchantreviews/:userId', function (req, res) {
+    db.Merchant_Review.create({
+      where: { 
+        user_id: req.params.userId,
+        merchant_id: req.body.merchantId,
+        merchant_review: req.body.merchantReview,
+        merchant_rating: req.body.merchantRating
+      }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Update already existing merchant review
+  app.put('/merchantreviews/:merchId', function (req, res) {
+    db.Merchant_Review.update({
+      where: {
+        id: req.params.merchId,
+      }
+
+    })
+  });
+
+  // Remove a written merchant review 
   app.delete('');
 
   // All of Label's/Strain's Use Cases
@@ -142,21 +160,30 @@ module.exports = function (app) {
   });
 
   // Get all reviews written about this merchant
-  app.get('/:merchantid/merchantreview', function (req, res) {
-    db.Merchant.findAll({
-      where: { id: req.params.merchantid },
-      include: [
-        { model: db.Merchant_Review }
-      ]
+  app.get('/merchantreview/:merchantId', function (req, res) {
+    db.Merchant_Review.findAll({
+      where: { id: req.params.merchantId },
     }).then(results => {
       res.json(results);
     })
   });
 
   // Merchants adding ads (post)
-  app.post('');
+  app.post('/merchantads/:merchantId', function (req, res) {
+    db.Merchant_Ad.create({
+      where: {}
+    }).then(results => {
+      res.json(results);
+    })
+  });
   // Merchant adding growers review (post)
-  app.post('');
+  app.post('/addgrowerreviews/:merchantId', function (req, res) {
+    db.Grower_Review.create({
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
 
   // All of Growers's Use Cases
   // ================================
@@ -168,24 +195,18 @@ module.exports = function (app) {
   });
 
   // Get all reviews written about this grower
-  app.get('/:growerid/growerreviews', function() {
-    db.Grower.findAll({
-      where: { id: req.params.growerid },
-      include: [
-        { model: db.Grower_Review }
-      ]
+  app.get('/growerreviews/:growerId', function() {
+    db.Grower_Review.findAll({
+      where: { id: req.params.growerId }
     }).then(results => {
       res.json(results);
     })
   });
 
   // Get grower's menu
-  app.get('/:growerid/growermenu', function (req, res) {
-    db.Grower.findAll({
-      where: { id: req.params.growerid },
-      include: [
-        { model: db.Grower_Menu }
-      ]
+  app.get('/growermenu/:growerId', function (req, res) {
+    db.Grower_Menu.findAll({
+      where: { id: req.params.growerId }
     }).then(results => {
       res.json(results);
     })

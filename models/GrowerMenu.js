@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const GrowerMenu = sequelize.define("Grower_Menu", {
     id: {
@@ -20,3 +22,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return GrowerMenu;
 };
+
+

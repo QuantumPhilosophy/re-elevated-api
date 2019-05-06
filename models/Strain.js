@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const Strain = sequelize.define("Strain", {
     id: {
@@ -55,4 +57,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return Strain;
 };
+
 

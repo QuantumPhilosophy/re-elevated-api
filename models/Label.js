@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const Label = sequelize.define("Label", {
     id: {
@@ -27,3 +29,4 @@ module.exports = function(sequelize, DataTypes) {
   }
   return Label;
 }
+

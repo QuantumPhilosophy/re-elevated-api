@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const MerchantAd = sequelize.define("Merchant_Ads", {
     id: {
@@ -18,3 +20,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return MerchantAd;
 };
+
+

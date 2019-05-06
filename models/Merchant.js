@@ -1,3 +1,4 @@
+'use strict';
 
 module.exports = function(sequelize, DataTypes) {
     const Merchant = sequelize.define("Merchant", {
@@ -44,4 +45,6 @@ module.exports = function(sequelize, DataTypes) {
     }
     return Merchant;
 };
+
+
   

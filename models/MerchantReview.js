@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const MerchantReview = sequelize.define("Merchant_Review", {
     id: {
@@ -35,3 +37,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return MerchantReview;
 };
+
+

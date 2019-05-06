@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const GrowerReview = sequelize.define("Grower_Review", {
     id: {
@@ -31,4 +33,5 @@ module.exports = function(sequelize, DataTypes) {
   }
   return GrowerReview;
 };
- 
+
+

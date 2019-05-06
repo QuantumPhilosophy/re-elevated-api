@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(sequelize, DataTypes) {
   const StrainLabel = sequelize.define("Strain_Label", {
     id: {
@@ -25,3 +27,5 @@ module.exports = function(sequelize, DataTypes) {
   });
   return StrainLabel;
 };
+
+
