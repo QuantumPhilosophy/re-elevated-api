@@ -1,6 +1,12 @@
 node_modules/**/*
+<<<<<<< HEAD
 .expo/*
 npm-debug.*
+=======
+npm-debug.*
+.expo/*
+.idea/
+>>>>>>> 4fce7efd56861d374c5115090dcc6f2ddff43a4e
 *.jks
 *.p12
 *.key
