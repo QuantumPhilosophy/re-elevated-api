@@ -1,4 +1,6 @@
-module.exports = function (sequelize, DataTypes) {
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
   const WishlistedStrain = sequelize.define('Wishlisted_Strain', {
     id: {
       type: DataTypes.INTEGER,
@@ -6,10 +8,13 @@ module.exports = function (sequelize, DataTypes) {
       autoIncrement: true,
       primaryKey: true
     }
-  })
-  WishlistedStrain.associate = models => {
-    // WishlistedStrain.belongsTo(models.Label);
+  });
 
-  }
-  return WishlistedStrain
-}
+  WishlistedStrain.associate = models => {
+    WishlistedStrain.belongsTo(models.User);
+    WishlistedStrain.belongsTo(models.Strain);
+  };
+
+  return WishlistedStrain;
+};
+

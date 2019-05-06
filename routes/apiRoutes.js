@@ -1,16 +1,230 @@
-'use strict'
-
-const db = require('../models')
+const db = require("../models");
 
 module.exports = function (app) {
-  app.get('/', function (req, res) {
-    console.log('root route triggered')
-    db.User.findAll({
-      include: [
-        { model: db.Wishlisted_Strain }
-      ]
+
+  // All of User's Use Cases
+  // ==============================
+  // Get all wishlisted items of the logged in user
+  app.get('/wishlisted/:userId', function (req, res) {
+    db.Wishlisted_Strain.findAll({
+      where: { user_id: req.params.userId }
     }).then(results => {
-      res.json(results)
+      res.json(results);
     })
-  })
+  });
+
+  // Add new item to wishlist (post)
+  app.post('/wishlisted/:userId', function (req, res) {
+    db.Wishlisted_Strain.create({
+      where: { 
+        user_id: req.params.userId,
+        strain_id: req.body.strainId
+      }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Remove item from wishlist
+  app.delete('/wishlisted/:wishId', function (req, res) {
+    db.Wishlisted_Strain.destroy({
+      where: { id: req.params.wishId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all tried items of the logged in user
+  app.get('/tried/:userId', function (req, res) {
+    db.Tried_Strain.findAll({
+      where: { user_id: req.params.userId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Add new item to tried list (post)
+  app.post('/tried/:userId', function (req, res) {
+    db.Tried_Strain.create({
+      where: { 
+        user_id: req.params.userId,
+        strain_id: req.body.strainId
+      },
+    }).then(results => {
+      res.json(results);
+    })
+  });
+  
+  // Remove item from tried list
+  app.delete('/tried/:triedId', function (req, res) {
+    db.Tried_Strain.destroy({
+      where: { id: req.params.triedId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all strain reviews written by the logged in user
+  app.get('/strainreviews/:userId', function (req, res) {
+    db.Strain_Review.findAll({
+      where: { user_id: req.params.userId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Add new review to a strain (post)
+  app.post('/strainreviews/:userId', function (req, res) {
+    db.Strain_Review.create({
+      where: { 
+        user_id: req.params.userId,
+        strain_id: req.body.strainId
+      },
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Update already existing reviews
+  app.put('/strainreviews/:reviewId', function (req, res) {
+    db.Strain_Review.update({
+      where: { id: req.params.reviewId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Remove a review written
+  app.delete('/strainreviews/remove/:reviewId', function (req, res) {
+    db.Strain_Review.destroy({
+      where: { id: req.params.reviewId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all merchant reviews written by the logged in user
+  app.get('/merchantreviews/:userId', function (req, res) {
+    db.Merchant_Review.findAll({
+      where: { user_id: req.params.userId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Add new review to a merchant (post)
+  app.post('/merchantreviews/:userId', function (req, res) {
+    db.Merchant_Review.create({
+      where: { 
+        user_id: req.params.userId,
+        merchant_id: req.body.merchantId,
+        merchant_review: req.body.merchantReview,
+        merchant_rating: req.body.merchantRating
+      }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Update already existing merchant review
+  app.put('/merchantreviews/:merchantId', function (req, res) {
+    db.Merchant_Review.update(
+      {},
+      { where: { id: req.params.merchantId } }
+    ).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Remove a written merchant review 
+  app.delete('/merchantreviews/remove/:merchantId', function (req, res) {
+    db.Merchant_Review.destroy({
+      where: {
+        id: req.params.merchantId,
+      }
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // All of Label's/Strain's Use Cases
+  // ================================
+  // Get all strains available to customers
+  app.get('/strains', function (req, res) {
+    db.Strain.findAll({}).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Adding new strains to the database (post)
+  app.post('/strains', function (req, res) {
+    db.Strain.create({
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // All of Merchants's Use Cases
+  // ================================
+  // Get all verified merchants 
+  app.get('/merchants', function (req, res) {
+    db.Merchant.findAll({}).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all reviews written about this merchant
+  app.get('/merchantreview/:merchantId', function (req, res) {
+    db.Merchant_Review.findAll({
+      where: { id: req.params.merchantId },
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Merchants adding ads (post)
+  app.post('/merchantads/:merchantId', function (req, res) {
+    db.Merchant_Ad.create({
+      where: {}
+    }).then(results => {
+      res.json(results);
+    })
+  });
+  // Merchant adding growers review (post)
+  app.post('/addgrowerreviews/:merchantId', function (req, res) {
+    db.Grower_Review.create({
+
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // All of Growers's Use Cases
+  // ================================
+  // Get all verified growers
+  app.get('/grower', function (req, res) {
+    db.Grower.findAll({}).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all reviews written about this grower
+  app.get('/growerreviews/:growerId', function() {
+    db.Grower_Review.findAll({
+      where: { id: req.params.growerId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get grower's menu
+  app.get('/growermenu/:growerId', function (req, res) {
+    db.Grower_Menu.findAll({
+      where: { id: req.params.growerId }
+    }).then(results => {
+      res.json(results);
+    })
+  });
 }

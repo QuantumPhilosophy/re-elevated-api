@@ -1,5 +1,7 @@
-module.exports = function (sequelize, DataTypes) {
-  const MerchantReview = sequelize.define('Merchant_Review', {
+'use strict';
+
+module.exports = function(sequelize, DataTypes) {
+  const MerchantReview = sequelize.define("Merchant_Review", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -28,6 +30,12 @@ module.exports = function (sequelize, DataTypes) {
     merchant_rating: {
       type: DataTypes.INTEGER
     }
-  })
-  return MerchantReview
-}
+  });
+  MerchantReview.associate = models => {
+    MerchantReview.belongsTo(models.User);
+    MerchantReview.belongsTo(models.Merchant);
+  }
+  return MerchantReview;
+};
+
+

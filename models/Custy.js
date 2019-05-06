@@ -1,6 +1,8 @@
-const bcrypt = require('bcrypt-nodejs')
+'use strict';
 
-module.exports = function (sequelize, DataTypes) {
+const bcrypt = require('bcrypt-nodejs');
+
+module.exports = function(sequelize, DataTypes) {
   const User = sequelize.define('User', {
     id: {
       type: DataTypes.INTEGER,
@@ -19,16 +21,16 @@ module.exports = function (sequelize, DataTypes) {
     },
     dob: {
       type: DataTypes.DATE
-    },
+    }, 
     user_img: {
       type: DataTypes.STRING
     }
-  })
+  });
 
   User.associate = models => {
-    User.hasMany(models.Wishlisted_Strain, { foreignKey: 'user_id' })
-    User.hasMany(models.Tried_Strain, { foreignKey: 'user_id' })
-    User.hasMany(models.Strain_Review, { foreignKey: 'user_id' })
+    User.hasMany(models.Wishlisted_Strain, {foreignKey: 'user_id'});
+    User.hasMany(models.Tried_Strain, {foreignKey: 'user_id'});
+    User.hasMany(models.Strain_Review, {foreignKey: 'user_id'});
   }
 
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
@@ -42,5 +44,7 @@ module.exports = function (sequelize, DataTypes) {
     user.user_password = bcrypt.hashSync(user.user_password, bcrypt.genSaltSync(10), null)
   })
 
-  return User
-}
+  return User;
+};
+
+
