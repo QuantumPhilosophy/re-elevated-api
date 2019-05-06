@@ -6,6 +6,7 @@
 // =============================================================
 const express = require('express')
 const session = require('express-session')
+const cors = require('cors')
 const passport = require('./config/passport')
 
 // Sets up the Express App
@@ -13,10 +14,13 @@ const passport = require('./config/passport')
 const app = express()
 const PORT = process.env.PORT || 3030
 
+app.use(cors())
+
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// Sets up Express Sessions
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
@@ -29,8 +33,8 @@ app.use(passport.session())
 const db = require('./models')
 
 // Routes
-require('./routes').apiRoutes(app);
-require('./routes').authRoutes(app);
+require('./routes').apiRoutes(app)
+require('./routes').authRoutes(app)
 
 const syncOptions = {
   force: false
