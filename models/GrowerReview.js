@@ -1,25 +1,25 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const GrowerReview = sequelize.define("Grower_Review", {
+  const GrowerReview = sequelize.define('Grower_Review', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
     }, 
-    merchant_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'Merchants',
-        key: 'id'
-      }
-    },
-    grower_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
+    // merchant_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    //   references: {
+    //     model: 'Merchants',
+    //     key: 'id'
+    //   }
+    // },
+    // grower_id: {
+    //   type: DataTypes.INTEGER,
+    //   allowNull: false,
+    // },
     grower_review: {
       type: DataTypes.TEXT,
     },
@@ -28,8 +28,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   GrowerReview.associate = models => {
-    GrowerReview.belongsTo(models.Merchant);
-    GrowerReview.belongsTo(models.Grower);
+    GrowerReview.belongsTo(models.Merchant, {foreignKey: 'merchant_id'});
+    GrowerReview.belongsTo(models.Grower, {foreignKey: 'grower_id'});
   }
   return GrowerReview;
 };

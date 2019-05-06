@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const MerchantAd = sequelize.define("Merchant_Ads", {
+  const MerchantAd = sequelize.define('Merchant_Ad', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   MerchantAd.associate = models => {
-    MerchantAd.belongsTo(models.Merchant);
+    MerchantAd.belongsTo(models.Merchant, {foreignKey: 'merchant_id'});
   }
   return MerchantAd;
 };

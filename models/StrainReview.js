@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-    const StrainReview = sequelize.define("Strain_Review", {
+    const StrainReview = sequelize.define('Strain_Review', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -14,30 +14,30 @@ module.exports = function(sequelize, DataTypes) {
         autoIncrement: true,
         primaryKey: true
       }, 
-      custy_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Users',
-          key: 'id'
-        }
-      },
-      strain_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Strains',
-          key: 'id'
-        }
-      },
-      label_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Labels',
-          key: 'id'
-        }
-      },
+      // custy_id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: 'Users',
+      //     key: 'id'
+      //   }
+      // },
+      // strain_id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: 'Strains',
+      //     key: 'id'
+      //   }
+      // },
+      // label_id: {
+      //   type: DataTypes.INTEGER,
+      //   allowNull: false,
+      //   references: {
+      //     model: 'Labels',
+      //     key: 'id'
+      //   }
+      // },
       strain_label_review: {
         type: DataTypes.TEXT
       }, 
@@ -46,8 +46,8 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
     StrainReview.associate = models => {
-      StrainReview.belongsTo(models.User);
-      StrainReview.belongsTo(models.Strain);
+    //   StrainReview.belongsTo(models.User);
+    //   StrainReview.belongsTo(models.Strain);
     }
     return StrainReview;
   };

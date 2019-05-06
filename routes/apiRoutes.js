@@ -4,6 +4,26 @@ module.exports = function (app) {
 
   // All of User's Use Cases
   // ==============================
+// getting all users
+  app.get('/users', function (req, res) {
+    db.User.findAll({}).then(results => {
+      res.json(results);
+    })
+  })
+// adding users
+  app.post('/adduser', function (req, res) {
+    db.User.create({
+      user_name: req.body.userName,
+      user_email: req.body.userEmail,
+      user_password: req.body.userPassword,
+      dob: req.body.dob,
+      user_img: req.body.userImg
+    }).then(results => {
+      res.json(results);
+    })
+  })
+
+  
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.findAll({
@@ -181,7 +201,8 @@ module.exports = function (app) {
   // Merchants adding ads (post)
   app.post('/merchantads/:merchantId', function (req, res) {
     db.Merchant_Ad.create({
-      where: {}
+      merchant_id: req.params.merchantId,
+      ad_img: req.body.adImg
     }).then(results => {
       res.json(results);
     })
@@ -189,7 +210,10 @@ module.exports = function (app) {
   // Merchant adding growers review (post)
   app.post('/addgrowerreviews/:merchantId', function (req, res) {
     db.Grower_Review.create({
-
+      merchant_id: req.params.merchantId,
+      grower_id: req.body.growerId,
+      grower_review: req.body.growerReview,
+      grower_rating: req.body.growerRating
     }).then(results => {
       res.json(results);
     })
@@ -221,4 +245,14 @@ module.exports = function (app) {
       res.json(results);
     })
   });
+
+  // add grower's menu
+  app.post('/growermenu/add/:growerId', function (req, res) {
+    db.Grower_Menu.create({
+      grower_id: req.params.growerId,
+      strain_list: req.body.strainList
+    }).then(results => {
+      res.json(results);
+    })
+  })
 }
