@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const GrowerMenu = sequelize.define("Grower_Menu", {
+  const GrowerMenu = sequelize.define('Grower_Menu', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   GrowerMenu.associate = models => {
-    GrowerMenu.belongsTo(models.Grower);
+    GrowerMenu.belongsTo(models.Grower, {foreignKey: 'grower_id'});
   }
   return GrowerMenu;
 };

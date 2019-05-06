@@ -4,6 +4,26 @@ module.exports = function (app) {
 
   // All of User's Use Cases
   // ==============================
+// getting all users
+  app.get('/users', function (req, res) {
+    db.User.findAll({}).then(results => {
+      res.json(results);
+    })
+  })
+// adding users
+  app.post('/adduser', function (req, res) {
+    db.User.create({
+      user_name: req.body.userName,
+      user_email: req.body.userEmail,
+      user_password: req.body.userPassword,
+      dob: req.body.dob,
+      user_img: req.body.userImg
+    }).then(results => {
+      res.json(results);
+    })
+  })
+
+
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.findAll({
@@ -16,10 +36,8 @@ module.exports = function (app) {
   // Add new item to wishlist (post)
   app.post('/wishlisted/:userId', function (req, res) {
     db.Wishlisted_Strain.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      }
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -46,10 +64,8 @@ module.exports = function (app) {
   // Add new item to tried list (post)
   app.post('/tried/:userId', function (req, res) {
     db.Tried_Strain.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      },
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -76,10 +92,8 @@ module.exports = function (app) {
   // Add new review to a strain (post)
   app.post('/strainreviews/:userId', function (req, res) {
     db.Strain_Review.create({
-      where: { 
-        user_id: req.params.userId,
-        strain_id: req.body.strainId
-      },
+      user_id: req.params.userId,
+      strain_id: req.body.strainId
     }).then(results => {
       res.json(results);
     })
@@ -88,6 +102,8 @@ module.exports = function (app) {
   // Update already existing reviews
   app.put('/strainreviews/:reviewId', function (req, res) {
     db.Strain_Review.update({
+
+    }, {
       where: { id: req.params.reviewId }
     }).then(results => {
       res.json(results);
@@ -115,12 +131,10 @@ module.exports = function (app) {
   // Add new review to a merchant (post)
   app.post('/merchantreviews/:userId', function (req, res) {
     db.Merchant_Review.create({
-      where: { 
-        user_id: req.params.userId,
-        merchant_id: req.body.merchantId,
-        merchant_review: req.body.merchantReview,
-        merchant_rating: req.body.merchantRating
-      }
+      user_id: req.params.userId,
+      merchant_id: req.body.merchantId,
+      merchant_review: req.body.merchantReview,
+      merchant_rating: req.body.merchantRating
     }).then(results => {
       res.json(results);
     })
@@ -160,7 +174,15 @@ module.exports = function (app) {
   // Adding new strains to the database (post)
   app.post('/strains', function (req, res) {
     db.Strain.create({
-
+      strain_name: req.body.strainName,
+      strain_race: req.body.strainRace,
+      strain_flavor: req.body.strainFlavor,
+      strain_positive: req.body.strainPositive,
+      strain_negative: req.body.strainNegative,
+      strain_medical: req.body.strainMedical,
+      strain_descr: req.body.strainDescr,
+      strain_img: req.body.strainImg,
+      strain_avg_rating: req.body.strainAvgRating
     }).then(results => {
       res.json(results);
     })
@@ -187,7 +209,8 @@ module.exports = function (app) {
   // Merchants adding ads (post)
   app.post('/merchantads/:merchantId', function (req, res) {
     db.Merchant_Ad.create({
-      where: {}
+      merchant_id: req.params.merchantId,
+      ad_img: req.body.adImg
     }).then(results => {
       res.json(results);
     })
@@ -195,7 +218,10 @@ module.exports = function (app) {
   // Merchant adding growers review (post)
   app.post('/addgrowerreviews/:merchantId', function (req, res) {
     db.Grower_Review.create({
-
+      merchant_id: req.params.merchantId,
+      grower_id: req.body.growerId,
+      grower_review: req.body.growerReview,
+      grower_rating: req.body.growerRating
     }).then(results => {
       res.json(results);
     })
@@ -227,4 +253,14 @@ module.exports = function (app) {
       res.json(results);
     })
   });
+
+  // add grower's menu
+  app.post('/growermenu/add/:growerId', function (req, res) {
+    db.Grower_Menu.create({
+      grower_id: req.params.growerId,
+      strain_list: req.body.strainList
+    }).then(results => {
+      res.json(results);
+    })
+  })
 }

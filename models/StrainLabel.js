@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const StrainLabel = sequelize.define("Strain_Label", {
+  const StrainLabel = sequelize.define('StrainLabel', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,

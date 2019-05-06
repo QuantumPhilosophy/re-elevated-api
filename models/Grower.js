@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function(sequelize, DataTypes) {
-  const Grower = sequelize.define("Grower", {
+  const Grower = sequelize.define('Grower', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -34,8 +34,8 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
   Grower.associate = models => {
-    Grower.hasMany(models.Grower_Review);
-    Grower.hasOne(models.Grower_Menu);
+    Grower.hasMany(models.Grower_Review, {foreignKey: 'grower_id'});
+    Grower.hasOne(models.Grower_Menu, {foreignKey: 'grower_id'});
   }
   return Grower;
 };
