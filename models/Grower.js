@@ -26,10 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     grower_img: {
       type: DataTypes.TEXT,
     },
-    grower_avg_custy_rating: {
-      type: DataTypes.INTEGER,
-    },
-    grower_avg_merchant_rating: {
+    grower_avg_rating: {
       type: DataTypes.INTEGER,
     }
   });

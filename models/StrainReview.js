@@ -13,12 +13,8 @@ module.exports = function(sequelize, DataTypes) {
       }, 
       strain_label_rating: {
         type: DataTypes.INTEGER
-      },
-      createdAt: {
-        field: 'beginTime',
-        defaultValue: sequelize.literal('NOW()')
       }
-    });
+    }, {timestamps: true});
     StrainReview.associate = models => {
       StrainReview.belongsTo(models.User, {foreignKey: 'user_id'});
       StrainReview.belongsTo(models.Strain, {foreignKey: 'strain_id'});
