@@ -20,6 +20,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+// Sets up Express Sessions
 app.use(session({
   secret: 'keyboard cat',
   resave: true,
@@ -32,8 +33,8 @@ app.use(passport.session())
 const db = require('./models')
 
 // Routes
-require('./routes').apiRoutes(app);
-require('./routes').authRoutes(app);
+require('./routes').apiRoutes(app)
+require('./routes').authRoutes(app)
 
 const syncOptions = {
   force: false
