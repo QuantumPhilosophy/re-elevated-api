@@ -204,6 +204,7 @@ module.exports = function (app) {
       res.json(results);
     })
   });
+
   // Merchant adding growers review (post)
   app.post('/growerreviews/add/:merchantId', function (req, res) {
     db.Grower_Review.create({
@@ -219,7 +220,7 @@ module.exports = function (app) {
   // All of Growers's Use Cases
   // ================================
   // Get all verified growers
-  app.get('/grower', function (req, res) {
+  app.get('/growers', function (req, res) {
     db.Grower.findAll({}).then(results => {
       res.json(results);
     })
