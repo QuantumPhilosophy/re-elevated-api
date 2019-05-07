@@ -6,12 +6,15 @@
 // =============================================================
 const express = require('express')
 const session = require('express-session')
+const cors = require('cors')
 const passport = require('./config/passport')
 
 // Sets up the Express App
 // =============================================================
 const app = express()
 const PORT = process.env.PORT || 3030
+
+app.use(cors())
 
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }))
