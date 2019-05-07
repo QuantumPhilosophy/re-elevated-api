@@ -177,6 +177,18 @@ module.exports = function (app) {
     })
   });
 
+  // Adding new Merchants to DB
+  app.post('/auth/merchant/signup', function (req, res) {
+    db.Merchant.create({
+      merchant_name: req.body.name,
+      merchant_email: req.body.email,
+      merchant_password: req.body.password,
+      merchant_location: req.body.address
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
   // Get all reviews written about this merchant
   app.get('/merchantreviews/:merchantId', function (req, res) {
     db.Merchant_Review.findAll({
