@@ -4,25 +4,6 @@ module.exports = function (app) {
 
   // All of User's Use Cases
   // ==============================
-// getting all users
-  app.get('/users', function (req, res) {
-    db.User.findAll({}).then(results => {
-      res.json(results);
-    })
-  })
-// adding users
-  app.post('/adduser', function (req, res) {
-    db.User.create({
-      user_name: req.body.userName,
-      user_email: req.body.userEmail,
-      user_password: req.body.userPassword,
-      dob: req.body.dob,
-      user_img: req.body.userImg
-    }).then(results => {
-      res.json(results);
-    })
-  })
-
 
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:userId', function (req, res) {
@@ -141,10 +122,10 @@ module.exports = function (app) {
   });
 
   // Update already existing merchant review
-  app.put('/merchantreviews/:merchantId', function (req, res) {
+  app.put('/merchantreviews/update/:userId', function (req, res) {
     db.Merchant_Review.update(
       {},
-      { where: { id: req.params.merchantId } }
+      { where: { id: req.params.userId } }
     ).then(results => {
       res.json(results);
     })
@@ -156,7 +137,6 @@ module.exports = function (app) {
       where: {
         id: req.params.merchantId,
       }
-
     }).then(results => {
       res.json(results);
     })
@@ -198,7 +178,16 @@ module.exports = function (app) {
   });
 
   // Get all reviews written about this merchant
-  app.get('/merchantreview/:merchantId', function (req, res) {
+  app.get('/merchantreviews/:merchantId', function (req, res) {
+    db.Merchant_Review.findAll({
+      where: { id: req.params.merchantId },
+    }).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Get all merchant's Ads 
+  app.get('/merchantads/:merchantId', function (req, res) {
     db.Merchant_Review.findAll({
       where: { id: req.params.merchantId },
     }).then(results => {
@@ -207,7 +196,7 @@ module.exports = function (app) {
   });
 
   // Merchants adding ads (post)
-  app.post('/merchantads/:merchantId', function (req, res) {
+  app.post('/merchantads/add/:merchantId', function (req, res) {
     db.Merchant_Ad.create({
       merchant_id: req.params.merchantId,
       ad_img: req.body.adImg
@@ -216,7 +205,7 @@ module.exports = function (app) {
     })
   });
   // Merchant adding growers review (post)
-  app.post('/addgrowerreviews/:merchantId', function (req, res) {
+  app.post('/growerreviews/add/:merchantId', function (req, res) {
     db.Grower_Review.create({
       merchant_id: req.params.merchantId,
       grower_id: req.body.growerId,
@@ -263,4 +252,34 @@ module.exports = function (app) {
       res.json(results);
     })
   })
+
+
+
+  // ===========================
+  // START OF TEST CODE
+  // ===========================
+
+  // getting all users
+  app.get('/users', function (req, res) {
+    db.User.findAll({}).then(results => {
+      res.json(results);
+    })
+  })
+  
+  // adding users
+  app.post('/adduser', function (req, res) {
+    db.User.create({
+      user_name: req.body.userName,
+      user_email: req.body.userEmail,
+      user_password: req.body.userPassword,
+      dob: req.body.dob,
+      user_img: req.body.userImg
+    }).then(results => {
+      res.json(results);
+    })
+  })
+
+  // ===========================
+  // END OF TEST CODE
+  // ===========================
 }
