@@ -4,6 +4,17 @@ module.exports = function (app) {
 
   // All of User's Use Cases
   // ==============================
+  // Adding new User to DB
+  app.post('/auth/user/signup', function (req, res) {
+    db.User.create({
+      user_name: req.body.name,
+      user_email: req.body.email,
+      user_password: req.body.password,
+      dob: req.body.dob
+    }).then(results => {
+      res.json(results);
+    })
+  });
 
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:userId', function (req, res) {
@@ -234,6 +245,17 @@ module.exports = function (app) {
   // Get all verified growers
   app.get('/growers', function (req, res) {
     db.Grower.findAll({}).then(results => {
+      res.json(results);
+    })
+  });
+
+  // Adding new Growers to DB
+  app.post('/auth/grower/signup', function (req, res) {
+    db.Grower.create({
+      grower_name: req.body.name,
+      grower_email: req.body.email,
+      grower_password: req.body.password
+    }).then(results => {
       res.json(results);
     })
   });
