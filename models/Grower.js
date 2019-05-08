@@ -21,7 +21,8 @@ module.exports = function (sequelize, DataTypes) {
     },
     grower_verification_img: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      defaultValue: false
+      // allowNull: false
     },
     grower_img: {
       type: DataTypes.TEXT

@@ -70,12 +70,12 @@ VALUES (now(), now(), 3, 3);
 
 -- Merchants Table
 
-INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
-VALUES ("GreenGoods", "merch@gmail.com", "asdf", "asdf", "asfd", "Seattle", 4, now(), now());
-INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
-VALUES ("BlackGoods", "merch1@gmail.com", "asdf", "asdf", "asfd", "Seattle", 1, now(), now());
-INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
-VALUES ("PinkGoods", "merch2@gmail.com", "asdf", "asdf", "asfd", "Seattle", 3, now(), now());
+INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
+VALUES ("GreenGoods", "merch@gmail.com", "asdf",  true, "asdf", "asfd", "Seattle", 4, now(), now());
+INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
+VALUES ("BlackGoods", "merch1@gmail.com", "asdf", true, "asdf", "asfd", "Seattle", 1, now(), now());
+INSERT INTO Merchants (merchant_name, merchant_email, merchant_password, merchant_verification, merchant_verification_img, merchant_img, merchant_location, merchant_avg_rating, createdAt, updatedAt)
+VALUES ("PinkGoods", "merch2@gmail.com", "asdf", false, "asdf", "asfd", "Seattle", 3, now(), now());
 
 -- Merchant_Reviews Table
 
