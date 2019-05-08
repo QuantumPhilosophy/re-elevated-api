@@ -2,6 +2,10 @@ const db = require("../models");
 
 module.exports = function (app) {
 
+  app.get('/', function (req, res) {
+    res.json('Welcome to Elevated!')
+  })
+
   // All of User's Use Cases
   // ==============================
 
