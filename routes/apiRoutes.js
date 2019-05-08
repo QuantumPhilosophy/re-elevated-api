@@ -85,8 +85,13 @@ module.exports = function (app) {
   app.post('/strainreviews/:userId', function (req, res) {
     db.Strain_Review.create({
       user_id: req.params.userId,
-      strain_id: req.body.strainId
+      strain_id: req.body.strainId,
+      label_id: req.body.labelId
     }).then(results => {
+      // grab the rating of the newly created review 
+      db.Strain_Review
+      // update the label_rating in labels table
+      // update the strain_rating in the strains table
       res.json(results);
     })
   });
