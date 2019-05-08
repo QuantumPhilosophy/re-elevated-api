@@ -1,11 +1,11 @@
-
+USE elevated_db;
 -- Users Table
 
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Bill", "test@gmail.com", "asfd", now(), "asff", now(), now());
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Will", "test1@gmail.com", "asfd", now(), "asff", now(), now());
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Greta", "test2@gmail.com", "asfd", now(), "asff", now(), now());
 
 
@@ -106,11 +106,11 @@ VALUES ("Browny", "grower2@gmail.com", "asdf", false, "asdf", 2, now(), now());
 
 -- Grower_Reviews Table
 
-INSERT INTO Growers_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
+INSERT INTO Grower_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
 VALUES ("GOOD SHIT", 5, now(), now(), 1, 1);
-INSERT INTO Growers_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
+INSERT INTO Grower_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
 VALUES ("BAD SHIT", 1, now(), now(), 2, 2);
-INSERT INTO Growers_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
+INSERT INTO Grower_Reviews (grower_review, grower_rating, createdAt, updatedAt, grower_id, merchant_id) 
 VALUES ("MEH SHIT", 3, now(), now(), 3, 3);
 
 -- Grower_Menus Table
