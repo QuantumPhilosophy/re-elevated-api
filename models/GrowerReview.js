@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   const GrowerReview = sequelize.define('Grower_Review', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true
-    }, 
+    },
     // merchant_id: {
     //   type: DataTypes.INTEGER,
     //   allowNull: false,
@@ -21,17 +21,15 @@ module.exports = function(sequelize, DataTypes) {
     //   allowNull: false,
     // },
     grower_review: {
-      type: DataTypes.TEXT,
+      type: DataTypes.TEXT
     },
     grower_rating: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER
     }
-  });
+  })
   GrowerReview.associate = models => {
-    GrowerReview.belongsTo(models.Merchant, {foreignKey: 'merchant_id'});
-    GrowerReview.belongsTo(models.Grower, {foreignKey: 'grower_id'});
+    GrowerReview.belongsTo(models.Merchant, { foreignKey: 'merchant_id' })
+    GrowerReview.belongsTo(models.Grower, { foreignKey: 'grower_id' })
   }
-  return GrowerReview;
-};
-
-
+  return GrowerReview
+}
