@@ -6,7 +6,7 @@ Backend API for the Elevated ecosystem.
 ### Local Development Setup
 You will need MySql installed and setup on your local machine.
 
-Clone the repository locally from [github.com/QuantumPhilosophy/elevated](https://github.com/QuantumPhilosophy/elevated) using `git clone`.
+Clone the repository locally from [github.com/QuantumPhilosophy/re-elevated-api](https://github.com/QuantumPhilosophy/re-elevated-api) using `git clone`.
 
 Then navigate into the cloned repository `elevated` and run `npm install` to install dependencies.
 
