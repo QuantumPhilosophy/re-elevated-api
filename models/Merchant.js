@@ -43,10 +43,5 @@ module.exports = function(sequelize, DataTypes) {
         Merchant.hasMany(models.Merchant_Review, {foreignKey: 'merchant_id'});
         Merchant.hasMany(models.Merchant_Ad, {foreignKey: 'merchant_id'});
     }
-  })
-  Merchant.associate = models => {
-    Merchant.hasMany(models.Merchant_Review, { foreignKey: 'merchant_id' })
-    Merchant.hasMany(models.Merchant_Ad, { foreignKey: 'merchant_id' })
-  }
-  return Merchant
+    return Merchant
 }
