@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = function(sequelize, DataTypes) {
     const Merchant = sequelize.define('Merchant', {
@@ -36,15 +36,17 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         merchant_avg_rating: {
-            type: DataTypes.INTEGER
+            type: DataTypes.DECIMAL(10,2)
         }
     });
     Merchant.associate = models => {
         Merchant.hasMany(models.Merchant_Review, {foreignKey: 'merchant_id'});
         Merchant.hasMany(models.Merchant_Ad, {foreignKey: 'merchant_id'});
     }
-    return Merchant;
-};
-
-
-  
+  })
+  Merchant.associate = models => {
+    Merchant.hasMany(models.Merchant_Review, { foreignKey: 'merchant_id' })
+    Merchant.hasMany(models.Merchant_Ad, { foreignKey: 'merchant_id' })
+  }
+  return Merchant
+}
