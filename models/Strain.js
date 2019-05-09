@@ -41,8 +41,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
     },
     strain_avg_rating: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+      type: DataTypes.DECIMAL(10,2)
     }
   });
   Strain.associate = models => {

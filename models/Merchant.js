@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING
         },
         merchant_avg_rating: {
-            type: DataTypes.INTEGER
+            type: DataTypes.DECIMAL(10,2)
         }
     });
     Merchant.associate = models => {

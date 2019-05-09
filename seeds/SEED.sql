@@ -1,11 +1,11 @@
 
 -- Users Table
 
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Bill", "test@gmail.com", "asfd", now(), "asff", now(), now());
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Will", "test1@gmail.com", "asfd", now(), "asff", now(), now());
-INSERT INTO User (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
+INSERT INTO Users (user_name, user_email, user_password, dob, user_img, createdAt, updatedAt)
 VALUES ("Greta", "test2@gmail.com", "asfd", now(), "asff", now(), now());
 
 

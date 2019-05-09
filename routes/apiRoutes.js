@@ -2,13 +2,13 @@ const db = require("../models");
 
 module.exports = function (app) {
 
-  function calcAvg(ratingArr) {
+  function calcAvg(arr) {
     // iterate through all the ratings and sum them up
     let sum = 0;
-    for (let i = 0; i < ratingArr.length; i++) {
-      sum += ratingArr[i];
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i].dataValues.strain_label_rating;
     }
-    let avgRating = sum / ratingArr.length;
+    let avgRating = sum / arr.length;
     return avgRating;
   };
 
@@ -116,40 +116,59 @@ module.exports = function (app) {
     db.Strain_Review.create({
       user_id: req.params.user_id,
       strain_id: req.body.strain_id,
-      label_id: req.body.user_id,
+      label_id: req.body.label_id,
+      strain_label_review: req.body.strain_label_review,
       strain_label_rating: req.body.strain_label_rating
     }).then(results => {
       // grab the all rating of the strain that the new review is about
+      console.log("created a new review");
       db.Strain_Review.findAll({
         where: {
           strain_id: results.strain_id
         },
-        // selects the 
+        // selects the strain_label_rating column
         attributes: ['strain_label_rating']
       }).then(results => {
         // update the strain_rating in strain table
         // results should be an array of numbers which is the rating given in all reviews
-        console.log(results); // this should be an array of ratings
-        let newRating = calcAvg(results)
+        console.log("array of ratings", results.length); // this should be an array of ratings
+        let newRating = calcAvg(results);
+        console.log("avg rating:", newRating);
         db.Strain.update({
           strain_avg_rating: newRating
         }, { 
-          where: { strain_id: req.body.strain_id } 
+          where: { id: req.body.strain_id } 
         }).then(results => {
-          return res.json(results);
+          console.log("updated new strain avg rating");
+          // res.json(results);
         })
       })
-      // update the label_rating in the lables table
-      // scrap all rows with the 
-      // db.Strain_Review.findAll({
-      //   where: {
-      //     label_id: req.body.label_id
-      //   }
 
-      // })
-      
-      // res.json(results);
-    })
+      // 
+      db.Strain_Review.findAll({
+        where: {
+          label_id: results.label_id
+        },
+        // selects the strain_label_rating column
+        attributes: ['strain_label_rating']
+      }).then(results => {
+        // update the label_rating in the lables table
+        // results should be an array of numbers which is the rating given in all reviews
+        console.log("array of ratings", results.length); // this should be an array of ratings
+        let newRating = calcAvg(results);
+        console.log("avg rating:", newRating);
+        
+        db.Label.update({
+          label_avg_rating: newRating
+        }, { 
+          where: { id: req.body.label_id } 
+        }).then(results => {
+          console.log("updated new label avg rating");
+          // res.json(results);
+        })
+      });
+      res.json(results);
+    });
   });
 
   // Update already existing reviews
