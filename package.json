@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "standard",
+    "fix": "standard --fix",
+    "test": "standard && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
   },
   "repository": {
     "type": "git",

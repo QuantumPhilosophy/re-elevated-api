@@ -5,10 +5,8 @@ const passport = require('../config/passport')
 // const isAuthenticated = require('../config/middleware/isAuthenticated')
 
 module.exports = function (app) {
+  // Route for authenticating a user for login
   app.post('/auth/login', passport.authenticate('local'), function (req, res) {
-    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
-    // They won't get this or even be able to access this page if they aren't authed
     res.end()
   })
 
@@ -22,6 +20,7 @@ module.exports = function (app) {
       user_password: req.body.user_password,
       dob: req.body.dob
     }).then(function (data) {
+      // TODO: Redirect to the /auth/login route to authenticate before returning ok to UIs
       res.json(data)
     }).catch(function (err) {
       res.json(err)
@@ -32,7 +31,7 @@ module.exports = function (app) {
   app.post('/auth/merchant/signup', function (req, res) {
     db.User.create({
       user_name: req.body.name,
-      user_email: req.body.email, 
+      user_email: req.body.email,
       user_password: req.body.password,
       user_address: req.body.address
     })
