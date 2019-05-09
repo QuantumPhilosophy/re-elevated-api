@@ -1,4 +1,4 @@
-const db = require("../models");
+const db = require('../models')
 
 module.exports = function (app) {
 
@@ -38,9 +38,9 @@ module.exports = function (app) {
     db.Wishlisted_Strain.findAll({
       where: { user_id: req.params.user_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Add new item to wishlist (post)
   app.post('/wishlisted/:user_id', function (req, res) {
@@ -49,9 +49,9 @@ module.exports = function (app) {
       strain_id: req.body.strain_id,
       label_id: req.body.label_id
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Remove item from wishlist
   app.delete('/wishlisted/:wish_id', function (req, res) {
@@ -61,9 +61,9 @@ module.exports = function (app) {
         user_id: req.body.user_id 
       }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Get all tried items of the logged in user
   app.get('/tried/:user_id', function (req, res) {
@@ -72,9 +72,9 @@ module.exports = function (app) {
         user_id: req.params.user_id 
       }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Add new item to tried list (post)
   app.post('/tried/:user_id', function (req, res) {
@@ -83,10 +83,10 @@ module.exports = function (app) {
       strain_id: req.body.strain_id,
       label_id: req.body.label_id
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
-  
+  })
+
   // Remove item from tried list
   app.delete('/tried/:tried_id', function (req, res) {
     db.Tried_Strain.destroy({
@@ -95,9 +95,9 @@ module.exports = function (app) {
         user_id: req.body.user_id 
       }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Get all strain reviews written by the logged in user
   app.get('/strainreviews/:user_id', function (req, res) {
@@ -106,9 +106,9 @@ module.exports = function (app) {
         user_id: req.params.user_id 
       }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Add new review to a strain (post)
   app.post('/strainreviews/:user_id', function (req, res) {
@@ -178,27 +178,27 @@ module.exports = function (app) {
     }, {
       where: { id: req.params.review_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Remove a review written
   app.delete('/strainreviews/remove/:review_id', function (req, res) {
     db.Strain_Review.destroy({
       where: { id: req.params.review_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Get all merchant reviews written by the logged in user
   app.get('/merchantreviews/:user_id', function (req, res) {
     db.Merchant_Review.findAll({
       where: { user_id: req.params.user_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Add new review to a merchant (post)
   app.post('/merchantreviews/:user_id', function (req, res) {
@@ -217,7 +217,7 @@ module.exports = function (app) {
 
       res.json(results);
     })
-  });
+  })
 
   // Update already existing merchant review
   app.put('/merchantreviews/update/:user_id', function (req, res) {
@@ -225,9 +225,9 @@ module.exports = function (app) {
       {},
       { where: { id: req.params.user_id } }
     ).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Remove a written merchant review 
   app.delete('/merchantreviews/remove/:merchant_id', function (req, res) {
@@ -236,9 +236,9 @@ module.exports = function (app) {
         id: req.params.merchant_id,
       }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // All of Label's/Strain's Use Cases
   // ================================
@@ -280,12 +280,12 @@ module.exports = function (app) {
 
   // All of Merchants's Use Cases
   // ================================
-  // Get all verified merchants 
+  // Get all verified merchants
   app.get('/merchants', function (req, res) {
     db.Merchant.findAll({}).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // THE BELOW CODE HAS BEEN MOVED TO AUTHROUTES.js
 
@@ -306,18 +306,18 @@ module.exports = function (app) {
     db.Merchant_Review.findAll({
       where: { id: req.params.merchant_id },
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Get all merchant's Ads 
   app.get('/merchantads/:merchant_id', function (req, res) {
     db.Merchant_Review.findAll({
       where: { id: req.params.merchant_id },
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Merchants adding ads (post)
   app.post('/merchantads/add/:merchant_id', function (req, res) {
@@ -325,10 +325,9 @@ module.exports = function (app) {
       merchant_id: req.params.merchant_id,
       ad_img: req.body.ad_img
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
   });
-
   // Merchant adding growers review (post)
   app.post('/growerreviews/add/:merchant_id', function (req, res) {
     db.Grower_Review.create({
@@ -340,16 +339,16 @@ module.exports = function (app) {
       // update grower's rating
       res.json(results);
     })
-  });
+  })
 
   // All of Growers's Use Cases
   // ================================
   // Get all verified growers
   app.get('/growers', function (req, res) {
     db.Grower.findAll({}).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // THE BELOW CODE HAS BEEN MOVED TO AUTHROUTES.js
   
@@ -369,18 +368,18 @@ module.exports = function (app) {
     db.Grower_Review.findAll({
       where: { id: req.params.grower_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // Get grower's menu
   app.get('/growermenu/:grower_id', function (req, res) {
     db.Grower_Menu.findAll({
       where: { id: req.params.grower_id }
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
-  });
+  })
 
   // add grower's menu
   app.post('/growermenu/add/:grower_id', function (req, res) {
@@ -388,11 +387,9 @@ module.exports = function (app) {
       grower_id: req.params.grower_id,
       strain_list: req.body.strain_list
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
   })
-
-
 
   // ===========================
   // START OF TEST CODE
@@ -401,10 +398,10 @@ module.exports = function (app) {
   // getting all users
   app.get('/users', function (req, res) {
     db.User.findAll({}).then(results => {
-      res.json(results);
+      res.json(results)
     })
   })
-  
+
   // adding users
   app.post('/adduser', function (req, res) {
     db.User.create({
@@ -414,7 +411,7 @@ module.exports = function (app) {
       dob: req.body.dob,
       user_img: req.body.userImg
     }).then(results => {
-      res.json(results);
+      res.json(results)
     })
   })
 
