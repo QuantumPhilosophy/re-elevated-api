@@ -5,31 +5,53 @@ const db = require('../models')
 
 // Telling passport we want to use a Local Strategy. In other words, we want login with a username/email and password
 passport.use(new LocalStrategy(
-  function (username, password, done) {
-    console.log('localStrategy triggered')
-    // When a user tries to sign in this code runs
-    db.User.findOne({
-      where: {
-        user_name: username
-      }
-    }).then(function (dbUser) {
-      // If there's no user with the given email
-      if (!dbUser) {
-        return done(null, false, {
-          message: 'Incorrect username.'
-        })
-      }
-      // If there is a user with the given email, but the password the user gives us is incorrect
-      else if (!dbUser.validPassword(password)) {
-        return done(null, false, {
-          message: 'Incorrect password.'
-        })
-      }
-      // If none of the above, return the user
-      return done(null, dbUser)
-    })
+  {
+    passReqToCallback: true
+  }, 
+  function(req, username, password, done) {
+    if (req.body.type === "user") {
+      console.log("check if user is actually a user")
+      db.User.findOne({ 
+        where: { user_name: username }
+      }).then(user => {
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        console.log(done(null, user), user);
+      });
+    } else if (req.body.type === "merchant") {
+      console.log("check if user is actually a merchant")
+      db.Merchant.findOne({ 
+        where: { merchant_name: username }
+      }).then(user => {
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        // return done(null, user);
+      });
+    } else if (req.body.type === "grower") {
+      console.log("check if user is actually a grower")
+      db.User.findOne({ 
+        where: { user_name: username }
+      }).then(user => {
+        if (!user) {
+          return done(null, false, { message: 'Incorrect username.' });
+        }
+        if (!user.validPassword(password)) {
+          return done(null, false, { message: 'Incorrect password.' });
+        }
+        // return done(null, user);
+      });
+    }
+    console.log("additional param", req.type);
   }
-))
+));
 
 // In order to help keep authentication state across HTTP requests,
 // Sequelize needs to serialize and deserialize the user
