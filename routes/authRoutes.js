@@ -13,7 +13,7 @@ module.exports = function (app) {
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
-  app.post('/auth/signup', function (req, res) {
+  app.post('/auth/user/signup', function (req, res) {
     db.User.create({
       user_name: req.body.user_name,
       user_email: req.body.user_email,
@@ -27,13 +27,36 @@ module.exports = function (app) {
     })
   })
 
-  // Route for signing up a merchant. We *must* be certain when setting up routes on web/mobile side that there is actually a receiving route setup on the api side.
+  // Route for signing up as a merchant
   app.post('/auth/merchant/signup', function (req, res) {
-    db.User.create({
-      user_name: req.body.name,
-      user_email: req.body.email,
-      user_password: req.body.password,
-      user_address: req.body.address
+    db.Merchant.create({
+      merchant_name: req.body.merchant_name,
+      merchant_email: req.body.merchant_email,
+      merchant_password: req.body.merchant_password,
+      merchant_verification: req.body.merchant_verification,
+      merchant_verification_img: req.body.merchant_verification_img,
+      merchant_img: req.body.merchant_img,
+      merchant_location: req.body.merchant_location
+    }).then(function (data) {
+      res.json(data)
+    }).catch(function (err) {
+      res.json(err)
+    })
+  })
+
+  // Route for signing up as a grower
+  app.post('/auth/grower/signup', function (req, res) {
+    db.Grower.create({
+      grower_name: req.body.grower_name,
+      grower_email: req.body.grower_email,
+      grower_password: req.body.grower_password,
+      // grower_verification: req.body.grower_verification,
+      grower_verification_img: req.body.grower_verification_img,
+      grower_img: req.body.grower_img,
+    }).then(function (data) {
+      res.json(data)
+    }).catch(function (err) {
+      res.json(err)
     })
   })
 

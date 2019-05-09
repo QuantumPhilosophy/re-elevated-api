@@ -17,7 +17,7 @@ module.exports = function (sequelize, DataTypes) {
       allowNull: false
     },
     label_avg_rating: {
-      type: DataTypes.INTEGER
+      type: DataTypes.DECIMAL(10,2)
     }
   })
   Label.associate = models => {
