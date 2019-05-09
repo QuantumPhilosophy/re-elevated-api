@@ -20,7 +20,7 @@ passport.use(new LocalStrategy(
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
-        console.log(done(null, user), user);
+        done(null, user);
       });
     } else if (req.body.type === "merchant") {
       console.log("check if user is actually a merchant")
@@ -33,7 +33,7 @@ passport.use(new LocalStrategy(
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
-        // return done(null, user);
+        return done(null, user);
       });
     } else if (req.body.type === "grower") {
       console.log("check if user is actually a grower")
@@ -46,10 +46,9 @@ passport.use(new LocalStrategy(
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
-        // return done(null, user);
+        return done(null, user);
       });
     }
-    console.log("additional param", req.type);
   }
 ));
 
