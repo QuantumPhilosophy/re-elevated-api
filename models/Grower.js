@@ -35,5 +35,15 @@ module.exports = function (sequelize, DataTypes) {
     Grower.hasMany(models.Grower_Review, { foreignKey: 'grower_id' })
     Grower.hasOne(models.Grower_Menu, { foreignKey: 'grower_id' })
   }
+  // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
+  Grower.prototype.validPassword = function (password) {
+    return bcrypt.compareSync(password, this.grower_password)
+  }
+
+  // Hooks are automatic methods that run during various phases of the User Model lifecycle
+  // In this case, before a User is created, we will automatically hash their password
+  Grower.addHook('beforeCreate', function (grower) {
+    grower.grower_password = bcrypt.hashSync(grower.grower_password, bcrypt.genSaltSync(10), null)
+  })
   return Grower
 }
