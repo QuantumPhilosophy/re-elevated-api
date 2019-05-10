@@ -37,8 +37,8 @@ passport.use(new LocalStrategy(
       });
     } else if (req.body.type === "grower") {
       console.log("check if user is actually a grower")
-      db.User.findOne({ 
-        where: { user_name: username }
+      db.Grower.findOne({ 
+        where: { grower_name: username }
       }).then(user => {
         if (!user) {
           return done(null, false, { message: 'Incorrect username.' });

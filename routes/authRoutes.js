@@ -7,23 +7,12 @@ const passport = require('../config/passport')
 module.exports = function (app) {
   // Route for authenticating a user for login
   app.post('/auth/login', function(req,res,next){
-    console.log("authRoutes.js connected to stand alone api");
-    console.log(req.body.type);
+    // console.log("authRoutes.js connected to stand alone api");
+    // console.log(req.body.type);
     passport.authenticate('local',function (){
       return res.redirect('/');
     })(req,res,next);
   });
-
-  // app.post('/auth/login', function(req) {
-  //   req._toParams="hi";
-  //   passport.authenticate('custom', { failureRedirect: '/auth/login' })(req)
-  // });
-  // app.post('/auth/login', function (req, res) {
-  //   req._toParam = "user";
-  //   passport.authenticate('local')(req,res)
-  // })
-
-
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
@@ -38,7 +27,6 @@ module.exports = function (app) {
         dob: req.body.dob
       })
         .then(function(data) {
-          // TODO: Redirect to the /auth/login route to authenticate before returning ok to UIs
           res.json(data);
         })
         .catch(function(err) {
