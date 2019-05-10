@@ -25,5 +25,12 @@ module.exports = function (sequelize, DataTypes) {
     //   }
     // }
   })
+  StrainLabel.associate = models => {
+    // models.(table_name)
+    StrainLabel.belongsToMany(models.Label, {
+      through: 'StrainLabel',
+      foreignKey: 'strain_id'
+    })
+  }
   return StrainLabel
 }

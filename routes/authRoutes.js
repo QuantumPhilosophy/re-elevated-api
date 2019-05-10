@@ -7,8 +7,8 @@ const passport = require('../config/passport')
 module.exports = function (app) {
   // Route for authenticating a user for login
   app.post('/auth/login', function(req,res,next){
-    // console.log("authRoutes.js connected to stand alone api");
-    // console.log(req.body.type);
+    console.log("authRoutes.js connected to stand alone api");
+    console.log(req.body.type);
     passport.authenticate('local',function (){
       return res.redirect('/');
     })(req,res,next);
