@@ -9,6 +9,7 @@ passport.use(new LocalStrategy(
     passReqToCallback: true
   }, 
   function(req, username, password, done) {
+    console.log(req.body.type);
     if (req.body.type === "user") {
       console.log("check if user is actually a user")
       db.User.findOne({ 
@@ -27,12 +28,16 @@ passport.use(new LocalStrategy(
       db.Merchant.findOne({ 
         where: { merchant_name: username }
       }).then(user => {
+        console.log("got stuff back from merchant query call");
         if (!user) {
+          console.log("not working")
           return done(null, false, { message: 'Incorrect username.' });
         }
+        console.log(!user.validPassword(password));
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
+        console.log("working")
         return done(null, user);
       });
     } else if (req.body.type === "grower") {

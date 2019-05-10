@@ -14,17 +14,6 @@ module.exports = function (app) {
     })(req,res,next);
   });
 
-  // app.post('/auth/login', function(req) {
-  //   req._toParams="hi";
-  //   passport.authenticate('custom', { failureRedirect: '/auth/login' })(req)
-  // });
-  // app.post('/auth/login', function (req, res) {
-  //   req._toParam = "user";
-  //   passport.authenticate('local')(req,res)
-  // })
-
-
-
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
