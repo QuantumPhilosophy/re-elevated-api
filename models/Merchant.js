@@ -1,5 +1,7 @@
 'use strict'
 
+const bcrypt = require('bcrypt-nodejs')
+
 module.exports = function(sequelize, DataTypes) {
     const Merchant = sequelize.define('Merchant', {
         id: {
@@ -43,5 +45,15 @@ module.exports = function(sequelize, DataTypes) {
         Merchant.hasMany(models.Merchant_Review, {foreignKey: 'merchant_id'});
         Merchant.hasMany(models.Merchant_Ad, {foreignKey: 'merchant_id'});
     }
+    // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
+    Merchant.prototype.validPassword = function (password) {
+        return bcrypt.compareSync(password, this.m)
+    }
+
+    // Hooks are automatic methods that run during various phases of the User Model lifecycle
+    // In this case, before a User is created, we will automatically hash their password
+    Merchant.addHook('beforeCreate', function (merchant) {
+        merchant.merchant_password = bcrypt.hashSync(merchant.merchant_password, bcrypt.genSaltSync(10), null)
+    })
     return Merchant
 }
