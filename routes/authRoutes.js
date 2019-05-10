@@ -27,7 +27,6 @@ module.exports = function (app) {
         dob: req.body.dob
       })
         .then(function(data) {
-          // TODO: Redirect to the /auth/login route to authenticate before returning ok to UIs
           res.json(data);
         })
         .catch(function(err) {
