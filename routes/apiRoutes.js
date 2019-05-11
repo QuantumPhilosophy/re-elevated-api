@@ -313,9 +313,18 @@ module.exports = function (app) {
   })
 
   // Get all reviews written about this merchant
-  app.get('merchant/merchantreviews/:merchant_id', function (req, res) {
+  app.get('/merchant/merchantreviews/:merchid', function (req, res) {
     db.Merchant_Review.findAll({
-      where: { id: req.params.merchant_id },
+      where: { merchant_id: req.params.merchid },
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
+  // Get all reviews this merchant wrote about growers
+  app.get('/merchant/growerreviews/:merchant_id', function (req, res) {
+    db.Grower_Review.findAll({
+      where: { merchant_id: req.params.merchant_id },
     }).then(results => {
       res.json(results)
     })
