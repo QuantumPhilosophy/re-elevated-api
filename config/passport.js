@@ -33,7 +33,6 @@ passport.use(new LocalStrategy(
           console.log("not working")
           return done(null, false, { message: 'Incorrect username.' });
         }
-        console.log(!user.validPassword(password));
         if (!user.validPassword(password)) {
           return done(null, false, { message: 'Incorrect password.' });
         }
@@ -60,7 +59,7 @@ passport.use(new LocalStrategy(
 // Sequelize needs to serialize and deserialize the user
 // Just consider this part boilerplate needed to make it all work
 passport.serializeUser(function (user, cb) {
-  cb(null, user)
+  cb(null, user);
 })
 
 passport.deserializeUser(function (obj, cb) {
