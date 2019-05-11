@@ -7,11 +7,20 @@ const passport = require('../config/passport')
 module.exports = function (app) {
   // Route for authenticating a user for login
   app.post('/auth/login', function(req,res,next){
-    console.log("authRoutes.js connected to stand alone api");
-    console.log(req.body.type);
-    passport.authenticate('local',function (){
-      return res.redirect('/');
-    })(req,res,next);
+    passport.authenticate('local', function(err, user, info) {
+      if (err) { return next(err); }
+      if (!user) { return res.redirect('/login'); }
+      req.login(user, function(err) {
+        console.log("logged in")
+        if (err) { return next(err); }
+        res.json(user);
+      });
+    })(req, res, next)
+    // .then(result => {
+    //   res.json(result);
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -74,17 +83,26 @@ module.exports = function (app) {
 
   // Route for getting some data about our user to be used client side
   app.get("/auth/user_data", function(req, res) {
-    if (!req.user) {
-      // The user is not logged in, send back an empty object
-      res.json({});
-    } else {
-      // Otherwise send back the user's email and id
-      // Sending back a password, even a hashed password, isn't a good idea
-      res.json({
-        email: req.user.email,
-        id: req.user.id
-      });
-    }
+    // db.User.findOne({
+    //   where: { id: req.body.id }
+    // }).then(results=> {
+    //   res.json(results)
+    //   console.log('findOne User', results)
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+    // console.log("checking");
+    // if (!req.user) {
+    //   // The user is not logged in, send back an empty object
+    //   res.json({});
+    // } else {
+    //   // Otherwise send back the user's email and id
+    //   // Sending back a password, even a hashed password, isn't a good idea
+    //   res.json({
+    //     email: req.user.email,
+    //     id: req.user.id
+    //   });
+    // }
   });
 };
 
