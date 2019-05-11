@@ -312,36 +312,19 @@ module.exports = function (app) {
     })
   })
 
-  // THE BELOW CODE HAS BEEN MOVED TO AUTHROUTES.js
-
-  // // Adding new Merchants to DB
-  // app.post('/auth/merchant/signup', function (req, res) {
-  //   db.Merchant.create({
-  //     merchant_name: req.body.name,
-  //     merchant_email: req.body.email,
-  //     merchant_password: req.body.password,
-  //     merchant_location: req.body.address
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
-
-  // Adding new Merchants to DB
-  app.post('/auth/merchant/signup', function (req, res) {
-    db.Merchant.create({
-      merchant_name: req.body.name,
-      merchant_email: req.body.email,
-      merchant_password: req.body.password,
-      merchant_location: req.body.address
-    }).then(results => {
-      res.json(results);
-    })
-  });
-
   // Get all reviews written about this merchant
-  app.get('/merchantreviews/:merchant_id', function (req, res) {
+  app.get('/merchant/merchantreviews/:merchid', function (req, res) {
     db.Merchant_Review.findAll({
-      where: { id: req.params.merchant_id },
+      where: { merchant_id: req.params.merchid },
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
+  // Get all reviews this merchant wrote about growers
+  app.get('/merchant/growerreviews/:merchant_id', function (req, res) {
+    db.Grower_Review.findAll({
+      where: { merchant_id: req.params.merchant_id },
     }).then(results => {
       res.json(results)
     })
@@ -357,7 +340,7 @@ module.exports = function (app) {
   })
 
   // Merchants adding ads (post)
-  app.post('/merchantads/add/:merchant_id', function (req, res) {
+  app.post('merchant/merchantads/add/:merchant_id', function (req, res) {
     db.Merchant_Ad.create({
       merchant_id: req.params.merchant_id,
       ad_img: req.body.ad_img
@@ -367,7 +350,7 @@ module.exports = function (app) {
   });
 
   // Merchant adding growers review (post)
-  app.post('/growerreviews/add/:merchant_id', function (req, res) {
+  app.post('merchant/growerreviews/add/:merchant_id', function (req, res) {
     db.Grower_Review.create({
       merchant_id: req.params.merchant_id,
       grower_id: req.body.grower_id,
@@ -388,32 +371,8 @@ module.exports = function (app) {
     })
   })
 
-  // THE BELOW CODE HAS BEEN MOVED TO AUTHROUTES.js
-  
-  // // Adding new Growers to DB
-  // app.post('/auth/grower/signup', function (req, res) {
-  //   db.Grower.create({
-  //     grower_name: req.body.name,
-  //     grower_email: req.body.email,
-  //     grower_password: req.body.password
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
-
-  // Adding new Growers to DB
-  app.post('/auth/grower/signup', function (req, res) {
-    db.Grower.create({
-      grower_name: req.body.name,
-      grower_email: req.body.email,
-      grower_password: req.body.password
-    }).then(results => {
-      res.json(results);
-    })
-  });
-
   // Get all reviews written about this grower
-  app.get('/growerreviews/:grower_id', function() {
+  app.get('/grower/growerreviews/:grower_id', function() {
     db.Grower_Review.findAll({
       where: { id: req.params.grower_id }
     }).then(results => {
