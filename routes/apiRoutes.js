@@ -315,7 +315,7 @@ module.exports = function (app) {
   // Get all reviews written about this merchant
   app.get('merchant/merchantreviews/:merchant_id', function (req, res) {
     db.Merchant_Review.findAll({
-      where: { id: req.params.merchant_id },
+      where: { merchant_id: req.params.merchant_id },
     }).then(results => {
       res.json(results)
     })
