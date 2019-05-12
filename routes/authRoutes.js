@@ -75,6 +75,16 @@ module.exports = function (app) {
     }
   });
 
+  // Route for signing up a merchant. We *must* be certain when setting up routes on web/mobile side that there is actually a receiving route setup on the api side.
+  app.post('/auth/merchant/signup', function (req, res) {
+    db.User.create({
+      user_name: req.body.name,
+      user_email: req.body.email, 
+      user_password: req.body.password,
+      user_address: req.body.address
+    })
+  })
+
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
