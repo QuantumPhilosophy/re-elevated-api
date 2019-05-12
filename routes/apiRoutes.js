@@ -313,7 +313,7 @@ module.exports = function (app) {
   })
 
   // Get all reviews written about this merchant
-  app.get('merchant/merchantreviews/:merchant_id', function (req, res) {
+  app.get('/merchant/merchantreviews/:merchant_id', function (req, res) {
     db.Merchant_Review.findAll({
       where: { merchant_id: req.params.merchant_id },
     }).then(results => {
@@ -331,7 +331,7 @@ module.exports = function (app) {
   })
 
   // Merchants adding ads (post)
-  app.post('merchant/merchantads/add/:merchant_id', function (req, res) {
+  app.post('/merchant/merchantads/add/:merchant_id', function (req, res) {
     db.Merchant_Ad.create({
       merchant_id: req.params.merchant_id,
       ad_img: req.body.ad_img
@@ -341,7 +341,7 @@ module.exports = function (app) {
   });
 
   // Merchant adding growers review (post)
-  app.post('merchant/growerreviews/add/:merchant_id', function (req, res) {
+  app.post('/merchant/growerreviews/add/:merchant_id', function (req, res) {
     db.Grower_Review.create({
       merchant_id: req.params.merchant_id,
       grower_id: req.body.grower_id,
@@ -365,7 +365,7 @@ module.exports = function (app) {
   // Get all reviews written about this grower
   app.get('/grower/growerreviews/:grower_id', function() {
     db.Grower_Review.findAll({
-      where: { id: req.params.grower_id }
+      where: { grower_id: req.params.grower_id }
     }).then(results => {
       res.json(results)
     })
@@ -374,7 +374,7 @@ module.exports = function (app) {
   // Get grower's menu
   app.get('/growermenu/:grower_id', function (req, res) {
     db.Grower_Menu.findAll({
-      where: { id: req.params.grower_id }
+      where: { grower_id: req.params.grower_id }
     }).then(results => {
       res.json(results)
     })
@@ -389,32 +389,4 @@ module.exports = function (app) {
       res.json(results)
     })
   })
-
-  // ===========================
-  // START OF TEST CODE
-  // ===========================
-
-  // getting all users
-  app.get('/users', function (req, res) {
-    db.User.findAll({}).then(results => {
-      res.json(results)
-    })
-  })
-
-  // adding users
-  app.post('/adduser', function (req, res) {
-    db.User.create({
-      user_name: req.body.userName,
-      user_email: req.body.userEmail,
-      user_password: req.body.userPassword,
-      dob: req.body.dob,
-      user_img: req.body.userImg
-    }).then(results => {
-      res.json(results)
-    })
-  })
-
-  // ===========================
-  // END OF TEST CODE
-  // ===========================
 }
