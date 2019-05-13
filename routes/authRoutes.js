@@ -7,20 +7,16 @@ const passport = require('../config/passport')
 module.exports = function (app) {
   // Route for authenticating a user for login
   app.post('/auth/login', function(req,res,next){
+    console.log("authRoutes")
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
-      if (!user) { return res.redirect('/login'); }
+      if (!user) { return res.redirect('/'); }
       req.login(user, function(err) {
         console.log("logged in")
         if (err) { return next(err); }
         res.json(user);
       });
     })(req, res, next)
-    // .then(result => {
-    //   res.json(result);
-    // }).catch(err => {
-    //   console.log(err);
-    // })
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -74,6 +70,16 @@ module.exports = function (app) {
         });
     }
   });
+
+  // Route for signing up a merchant. We *must* be certain when setting up routes on web/mobile side that there is actually a receiving route setup on the api side.
+  app.post('/auth/merchant/signup', function (req, res) {
+    db.User.create({
+      user_name: req.body.name,
+      user_email: req.body.email, 
+      user_password: req.body.password,
+      user_address: req.body.address
+    })
+  })
 
   // Route for logging user out
   app.get("/logout", function(req, res) {

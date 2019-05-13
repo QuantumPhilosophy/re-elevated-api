@@ -30,33 +30,14 @@ module.exports = function (app) {
     })
   });
 
-  // below code should be in authRoutes.js
-
-  // // Adding new User to DB
-  // app.post('/auth/user/signup', function (req, res) {
-  //   db.User.create({
-  //     user_name: req.body.name,
-  //     user_email: req.body.email,
-  //     user_password: req.body.password,
-  //     dob: req.body.dob
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
-
-  // below code should be in authRoutes.js
-
-  // // Adding new User to DB
-  // app.post('/auth/user/signup', function (req, res) {
-  //   db.User.create({
-  //     user_name: req.body.name,
-  //     user_email: req.body.email,
-  //     user_password: req.body.password,
-  //     dob: req.body.dob
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
+  // Get username by given userId 
+  app.get('/users/:id', function (req, res) {
+    db.User.findOne({
+      where: { id: req.params.id}
+    }).then(results => {
+      res.json(results);
+    })
+  })
 
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:user_id', function (req, res) {
@@ -312,6 +293,14 @@ module.exports = function (app) {
     })
   })
 
+  app.get('/merchants/:id', function (req, res) {
+    db.Merchant.findAll({
+      where: { id: req.params.id}
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
   // Get all reviews written about this merchant
   app.get('/merchant/merchantreviews/:merchid', function (req, res) {
     db.Merchant_Review.findAll({
@@ -340,7 +329,7 @@ module.exports = function (app) {
   })
 
   // Merchants adding ads (post)
-  app.post('merchant/merchantads/add/:merchant_id', function (req, res) {
+  app.post('/merchant/merchantads/add/:merchant_id', function (req, res) {
     db.Merchant_Ad.create({
       merchant_id: req.params.merchant_id,
       ad_img: req.body.ad_img
@@ -350,7 +339,7 @@ module.exports = function (app) {
   });
 
   // Merchant adding growers review (post)
-  app.post('merchant/growerreviews/add/:merchant_id', function (req, res) {
+  app.post('/merchant/growerreviews/add/:merchant_id', function (req, res) {
     db.Grower_Review.create({
       merchant_id: req.params.merchant_id,
       grower_id: req.body.grower_id,
@@ -370,11 +359,27 @@ module.exports = function (app) {
       res.json(results)
     })
   })
+  app.get('/growers/:id', function (req, res) {
+    db.Grower.findAll({
+      where: { id: req.params.id }
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
+  // Get specified grower
+  app.get('/growers/:growerid', function (req, res) {
+    db.Grower.findAll({
+      where: { id: req.params.growerid}
+    }).then(results => {
+      res.json(results)
+    })
+  })
 
   // Get all reviews written about this grower
   app.get('/grower/growerreviews/:grower_id', function() {
     db.Grower_Review.findAll({
-      where: { id: req.params.grower_id }
+      where: { grower_id: req.params.grower_id }
     }).then(results => {
       res.json(results)
     })
@@ -383,7 +388,7 @@ module.exports = function (app) {
   // Get grower's menu
   app.get('/growermenu/:grower_id', function (req, res) {
     db.Grower_Menu.findAll({
-      where: { id: req.params.grower_id }
+      where: { grower_id: req.params.grower_id }
     }).then(results => {
       res.json(results)
     })
@@ -398,32 +403,4 @@ module.exports = function (app) {
       res.json(results)
     })
   })
-
-  // ===========================
-  // START OF TEST CODE
-  // ===========================
-
-  // getting all users
-  app.get('/users', function (req, res) {
-    db.User.findAll({}).then(results => {
-      res.json(results)
-    })
-  })
-
-  // adding users
-  app.post('/adduser', function (req, res) {
-    db.User.create({
-      user_name: req.body.userName,
-      user_email: req.body.userEmail,
-      user_password: req.body.userPassword,
-      dob: req.body.dob,
-      user_img: req.body.userImg
-    }).then(results => {
-      res.json(results)
-    })
-  })
-
-  // ===========================
-  // END OF TEST CODE
-  // ===========================
 }
