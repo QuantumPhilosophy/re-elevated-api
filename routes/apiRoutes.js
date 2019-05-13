@@ -293,6 +293,14 @@ module.exports = function (app) {
     })
   })
 
+  app.get('/merchants/:id', function (req, res) {
+    db.Merchant.findAll({
+      where: { id: req.params.id}
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
   // Get all reviews written about this merchant
   app.get('/merchant/merchantreviews/:merchid', function (req, res) {
     db.Merchant_Review.findAll({
