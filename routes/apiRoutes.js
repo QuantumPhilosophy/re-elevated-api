@@ -30,33 +30,14 @@ module.exports = function (app) {
     })
   });
 
-  // below code should be in authRoutes.js
-
-  // // Adding new User to DB
-  // app.post('/auth/user/signup', function (req, res) {
-  //   db.User.create({
-  //     user_name: req.body.name,
-  //     user_email: req.body.email,
-  //     user_password: req.body.password,
-  //     dob: req.body.dob
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
-
-  // below code should be in authRoutes.js
-
-  // // Adding new User to DB
-  // app.post('/auth/user/signup', function (req, res) {
-  //   db.User.create({
-  //     user_name: req.body.name,
-  //     user_email: req.body.email,
-  //     user_password: req.body.password,
-  //     dob: req.body.dob
-  //   }).then(results => {
-  //     res.json(results);
-  //   })
-  // });
+  // Get username by given userId 
+  app.get('/users/:id', function (req, res) {
+    db.User.findOne({
+      where: { id: req.params.id}
+    }).then(results => {
+      res.json(results);
+    })
+  })
 
   // Get all wishlisted items of the logged in user
   app.get('/wishlisted/:user_id', function (req, res) {
@@ -367,6 +348,22 @@ module.exports = function (app) {
   // Get all verified growers
   app.get('/growers', function (req, res) {
     db.Grower.findAll({}).then(results => {
+      res.json(results)
+    })
+  })
+  app.get('/growers/:id', function (req, res) {
+    db.Grower.findAll({
+      where: { id: req.params.id }
+    }).then(results => {
+      res.json(results)
+    })
+  })
+
+  // Get specified grower
+  app.get('/growers/:growerid', function (req, res) {
+    db.Grower.findAll({
+      where: { id: req.params.growerid}
+    }).then(results => {
       res.json(results)
     })
   })

@@ -7,20 +7,16 @@ const passport = require('../config/passport')
 module.exports = function (app) {
   // Route for authenticating a user for login
   app.post('/auth/login', function(req,res,next){
+    console.log("authRoutes")
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
-      if (!user) { return res.redirect('/login'); }
+      if (!user) { return res.redirect('/'); }
       req.login(user, function(err) {
         console.log("logged in")
         if (err) { return next(err); }
         res.json(user);
       });
     })(req, res, next)
-    // .then(result => {
-    //   res.json(result);
-    // }).catch(err => {
-    //   console.log(err);
-    // })
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
