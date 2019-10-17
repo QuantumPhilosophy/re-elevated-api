@@ -1,5 +1,7 @@
 'use strict'
 
+const bcrypt = require('bcrypt-nodejs')
+
 module.exports = function (sequelize, DataTypes) {
   const Grower = sequelize.define('Grower', {
     id: {
