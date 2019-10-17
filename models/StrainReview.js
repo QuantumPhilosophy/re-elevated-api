@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     strain_label_rating: {
       type: DataTypes.INTEGER
-    }, 
+    },
     strain_label_img: {
       type: DataTypes.STRING
     }
